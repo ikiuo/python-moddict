@@ -14,6 +14,8 @@ CXXARCH = -arch x86_64
 
 PYTHON ?= python3
 
+SETUP = $(PYTHON) -m setup
+
 ENVPARAM = STDCXX="$(STDCXX)" ARCHFLAGS="$(CXXARCH)" DEBUG=$(DEBUG)
 
 .PHONY: all build clean
@@ -22,15 +24,15 @@ all:
 	@echo "Usage make (build|clean|install)"
 
 build:
-	env $(ENVPARAM) $(PYTHON) setup.py build $(BUILD_OPT)
+	env $(ENVPARAM) $(SETUP) build $(BUILD_OPT)
 
 install:
-	env $(ENVPARAM) $(PYTHON) setup.py install --user --old-and-unmanageable
+	env $(ENVPARAM) $(SETUP) install --user --old-and-unmanageable
 
 clean:
-	$(PYTHON) setup.py clean -a
+	$(SETUP) clean -a
 	rm -rf ModDict.egg-info
 	rm -rf build __pycache__
-	rm -f *~
+	rm -f *.pyc *~
 
 # end:
